@@ -1,0 +1,107 @@
+{
+  "metadata": {
+    "homeTitle": "Ghevans Travel Peru | Private Tours in Cusco & Peru",
+    "homeDescription": "Private tailored tours in Cusco, Sacred Valley, and Machu Picchu. Book via WhatsApp with Ghevans Travel Peru.",
+    "toursTitle": "Cusco & Peru Tours | Ghevans Travel Peru",
+    "toursDescription": "Browse our Cusco tours: Machu Picchu, Rainbow Mountain, Humantay Lake, Sacred Valley, and more.",
+    "aboutTitle": "About Us | Ghevans Travel Peru",
+    "aboutDescription": "Meet Ghevans Travel Peru — your local private tour agency in Cusco.",
+    "contactTitle": "Contact | Ghevans Travel Peru",
+    "contactDescription": "Book your tour on WhatsApp. Private Cusco tours with hotel pickup.",
+    "faqTitle": "FAQ | Ghevans Travel Peru",
+    "faqDescription": "Answers about booking, pickup, pricing, and tours in Cusco and Machu Picchu."
+  },
+  "nav": {
+    "home": "Home",
+    "tours": "Tours",
+    "about": "About",
+    "contact": "Contact",
+    "faq": "FAQ"
+  },
+  "hero": {
+    "title": "Uncover the Heart of the Andes: Cusco & Sacred Valley",
+    "subtitle": "Private tailored tours crafted for the modern explorer.",
+    "cta": "Book Your Expedition"
+  },
+  "home": {
+    "toursTitle": "Choose your next Peru experience",
+    "toursSubtitle": "Browse guided experiences, review each destination, and book via WhatsApp.",
+    "experiencesTitle": "Real experiences",
+    "experiencesSubtitle": "Travelers from around the world trust Ghevans Travel Peru.",
+    "whyTitle": "Why Ghevans Travel Peru?",
+    "why1": "Local guide with deep Cusco experience",
+    "why2": "Private, personalized tours",
+    "why3": "Hotel pickup — no walk-in office, straight to your adventure",
+    "viewAllTours": "View all tours"
+  },
+  "tours": {
+    "title": "Choose your next Peru experience",
+    "subtitle": "Browse guided experiences like a travel marketplace: open a destination, review the details, and book on WhatsApp.",
+    "viewDetails": "View details",
+    "from": "From",
+    "customQuote": "Custom quote",
+    "duration": "Duration",
+    "price": "Price",
+    "highlights": "Highlights",
+    "bookTour": "Book this tour",
+    "gallery": "Gallery"
+  },
+  "about": {
+    "title": "About Ghevans Travel Peru",
+    "p1": "Ghevans Travel Peru is a local private tour agency based in Cusco. We offer personalized experiences across the Sacred Valley, Machu Picchu, and the most iconic destinations in southern Peru.",
+    "p2": "Our approach is simple: friendly service, clear logistics, and the flexibility of a local operator who knows the region. We pick up guests at their hotel — we don't have a walk-in office.",
+    "p3": "Whether it's your first time in Cusco or a return to Machu Picchu, we design each tour so you feel supported and safe."
+  },
+  "contact": {
+    "title": "Ready to book your tour?",
+    "subtitle": "Private tours in Cusco & Peru. We pick you up at your hotel — contact us on WhatsApp.",
+    "formTitle": "Ghevans Travel Peru",
+    "formSubtitle": "Fill out the form and we'll connect you on WhatsApp.",
+    "firstName": "First name",
+    "lastName": "Last name",
+    "email": "Email",
+    "whatsapp": "WhatsApp",
+    "message": "Message",
+    "messagePlaceholder": "How can we help you?",
+    "send": "Send via WhatsApp",
+    "whatsappCta": "Chat on WhatsApp",
+    "googleCta": "View Google profile",
+    "pickupNote": "No walk-in office — hotel pickup service in Cusco."
+  },
+  "faq": {
+    "title": "Frequently asked questions",
+    "items": {
+      "booking": {
+        "q": "How do I book a tour?",
+        "a": "Message us on WhatsApp with the tour you want, your dates, and group size. We'll confirm availability and details."
+      },
+      "pickup": {
+        "q": "Do you have a physical office?",
+        "a": "We don't have a walk-in location. We operate with hotel pickup in Cusco and coordinate everything via WhatsApp."
+      },
+      "payment": {
+        "q": "How do I pay?",
+        "a": "Payment is arranged directly with you on WhatsApp. There is no online checkout on this website."
+      },
+      "languages": {
+        "q": "What languages do you support?",
+        "a": "We serve Spanish-speaking guests and can coordinate tours for English, Portuguese, and French-speaking visitors."
+      },
+      "custom": {
+        "q": "Can I customize a tour?",
+        "a": "Yes. Many of our tours are private and we can adapt the itinerary to your schedule and interests."
+      }
+    }
+  },
+  "footer": {
+    "tagline": "Private tours in Cusco & Peru",
+    "rights": "All rights reserved."
+  },
+  "whatsapp": {
+    "label": "WhatsApp",
+    "tooltip": "Message us on WhatsApp"
+  },
+  "language": {
+    "label": "Language"
+  }
+}

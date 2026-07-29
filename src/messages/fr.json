@@ -1,0 +1,107 @@
+{
+  "metadata": {
+    "homeTitle": "Ghevans Travel Peru | Tours privés à Cusco et au Pérou",
+    "homeDescription": "Tours privés et personnalisés à Cusco, vallée sacrée et Machu Picchu. Réservez via WhatsApp avec Ghevans Travel Peru.",
+    "toursTitle": "Tours à Cusco et au Pérou | Ghevans Travel Peru",
+    "toursDescription": "Découvrez nos tours à Cusco : Machu Picchu, montagne arc-en-ciel, Humantay, vallée sacrée et plus.",
+    "aboutTitle": "À propos | Ghevans Travel Peru",
+    "aboutDescription": "Découvrez Ghevans Travel Peru, votre agence locale de tours privés à Cusco.",
+    "contactTitle": "Contact | Ghevans Travel Peru",
+    "contactDescription": "Réservez votre tour via WhatsApp. Tours privés à Cusco avec prise en charge à l'hôtel.",
+    "faqTitle": "FAQ | Ghevans Travel Peru",
+    "faqDescription": "Réponses sur les réservations, la prise en charge, les tarifs et les tours à Cusco et Machu Picchu."
+  },
+  "nav": {
+    "home": "Accueil",
+    "tours": "Tours",
+    "about": "À propos",
+    "contact": "Contact",
+    "faq": "FAQ"
+  },
+  "hero": {
+    "title": "Découvrez le cœur des Andes : Cusco et vallée sacrée",
+    "subtitle": "Tours privés et sur mesure pour l'explorateur moderne.",
+    "cta": "Réservez votre expédition"
+  },
+  "home": {
+    "toursTitle": "Choisissez votre prochaine expérience au Pérou",
+    "toursSubtitle": "Parcourez nos tours guidés, découvrez chaque destination et réservez via WhatsApp.",
+    "experiencesTitle": "Expériences réelles",
+    "experiencesSubtitle": "Des voyageurs du monde entier font confiance à Ghevans Travel Peru.",
+    "whyTitle": "Pourquoi Ghevans Travel Peru ?",
+    "why1": "Guide local expérimenté à Cusco",
+    "why2": "Tours privés et personnalisés",
+    "why3": "Prise en charge à l'hôtel — pas de bureau sur place",
+    "viewAllTours": "Voir tous les tours"
+  },
+  "tours": {
+    "title": "Choisissez votre prochaine expérience au Pérou",
+    "subtitle": "Parcourez nos expériences guidées, consultez les détails et réservez via WhatsApp.",
+    "viewDetails": "Voir les détails",
+    "from": "À partir de",
+    "customQuote": "Devis sur mesure",
+    "duration": "Durée",
+    "price": "Prix",
+    "highlights": "Points forts",
+    "bookTour": "Réserver ce tour",
+    "gallery": "Galerie"
+  },
+  "about": {
+    "title": "À propos de Ghevans Travel Peru",
+    "p1": "Ghevans Travel Peru est une agence locale de tours privés basée à Cusco. Nous proposons des expériences personnalisées dans la vallée sacrée, Machu Picchu et les destinations emblématiques du sud du Pérou.",
+    "p2": "Notre approche est simple : service chaleureux, logistique claire et flexibilité d'un opérateur local. Nous venons vous chercher à l'hôtel — nous n'avons pas de bureau de visite.",
+    "p3": "Que ce soit votre première visite à Cusco ou un retour au Machu Picchu, nous concevons chaque tour pour que vous vous sentiez accompagné et en sécurité."
+  },
+  "contact": {
+    "title": "Prêt à réserver votre tour ?",
+    "subtitle": "Tours privés à Cusco et au Pérou. Prise en charge à l'hôtel — contactez-nous via WhatsApp.",
+    "formTitle": "Ghevans Travel Peru",
+    "formSubtitle": "Remplissez le formulaire et nous vous connecterons sur WhatsApp.",
+    "firstName": "Prénom",
+    "lastName": "Nom",
+    "email": "E-mail",
+    "whatsapp": "WhatsApp",
+    "message": "Message",
+    "messagePlaceholder": "Comment pouvons-nous vous aider ?",
+    "send": "Envoyer via WhatsApp",
+    "whatsappCta": "Discuter sur WhatsApp",
+    "googleCta": "Voir le profil Google",
+    "pickupNote": "Pas de bureau sur place — prise en charge à l'hôtel à Cusco."
+  },
+  "faq": {
+    "title": "Questions fréquentes",
+    "items": {
+      "booking": {
+        "q": "Comment réserver un tour ?",
+        "a": "Écrivez-nous sur WhatsApp avec le tour souhaité, vos dates et le nombre de personnes. Nous confirmons la disponibilité et les détails."
+      },
+      "pickup": {
+        "q": "Avez-vous un bureau physique ?",
+        "a": "Nous n'avons pas de lieu de visite. Nous opérons avec prise en charge à l'hôtel à Cusco et coordonnons tout via WhatsApp."
+      },
+      "payment": {
+        "q": "Comment payer ?",
+        "a": "Le paiement est organisé directement avec vous sur WhatsApp. Il n'y a pas de paiement en ligne sur ce site."
+      },
+      "languages": {
+        "q": "Quelles langues parlez-vous ?",
+        "a": "Nous servons en espagnol et pouvons coordonner des tours pour les visiteurs anglophones, lusophones et francophones."
+      },
+      "custom": {
+        "q": "Puis-je personnaliser un tour ?",
+        "a": "Oui. Beaucoup de nos tours sont privés et nous pouvons adapter l'itinéraire à votre emploi du temps et vos intérêts."
+      }
+    }
+  },
+  "footer": {
+    "tagline": "Tours privés à Cusco et au Pérou",
+    "rights": "Tous droits réservés."
+  },
+  "whatsapp": {
+    "label": "WhatsApp",
+    "tooltip": "Écrivez-nous sur WhatsApp"
+  },
+  "language": {
+    "label": "Langue"
+  }
+}
