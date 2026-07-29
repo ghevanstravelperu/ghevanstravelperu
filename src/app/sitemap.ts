@@ -5,8 +5,8 @@ import { getAllTours } from "@/lib/tours";
 const locales = ["es", "en", "pt", "fr"] as const;
 const staticPaths = ["", "/tours", "/about", "/contact", "/faq"];
 
-export default function sitemap(): MetadataRoute.Sitemap {
-  const tours = getAllTours();
+export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
+  const tours = await getAllTours();
   const entries: MetadataRoute.Sitemap = [];
 
   for (const locale of locales) {

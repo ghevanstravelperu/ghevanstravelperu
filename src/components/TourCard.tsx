@@ -2,7 +2,7 @@ import Image from "next/image";
 import { getTranslations } from "next-intl/server";
 import { Link } from "@/i18n/navigation";
 import type { Locale } from "@/lib/constants";
-import { formatTourPrice, type Tour } from "@/lib/tours";
+import { formatTourPrice, getTourDuration, type Tour } from "@/lib/tours";
 
 export async function TourCard({
   tour,
@@ -33,7 +33,9 @@ export async function TourCard({
         <h3 className="font-serif text-xl font-semibold text-navy">
           {content.name}
         </h3>
-        <p className="mt-1 text-sm font-medium text-teal">{tour.duration}</p>
+        <p className="mt-1 text-sm font-medium text-teal">
+          {getTourDuration(tour, locale)}
+        </p>
         <p className="mt-3 line-clamp-2 text-sm leading-relaxed text-stone-600">
           {content.shortDescription}
         </p>

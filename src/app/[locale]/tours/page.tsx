@@ -22,6 +22,8 @@ export async function generateMetadata({
   };
 }
 
+export const revalidate = 60;
+
 export default async function ToursPage({
   params,
 }: {
@@ -30,7 +32,7 @@ export default async function ToursPage({
   const { locale } = await params;
   setRequestLocale(locale);
   const t = await getTranslations("tours");
-  const tours = getAllTours();
+  const tours = await getAllTours();
 
   return (
     <section className="py-14 sm:py-16">

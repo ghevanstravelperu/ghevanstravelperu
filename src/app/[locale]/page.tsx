@@ -25,6 +25,8 @@ export async function generateMetadata({
   };
 }
 
+export const revalidate = 60;
+
 export default async function HomePage({
   params,
 }: {
@@ -33,7 +35,7 @@ export default async function HomePage({
   const { locale } = await params;
   setRequestLocale(locale);
   const t = await getTranslations("home");
-  const featuredTours = getFeaturedTours();
+  const featuredTours = await getFeaturedTours();
 
   return (
     <>

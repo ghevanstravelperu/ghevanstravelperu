@@ -7,47 +7,97 @@ Private tour website for Ghevans Travel Peru — Cusco, Peru.
 - **Next.js 16** (App Router)
 - **next-intl** — Spanish, English, Portuguese, French
 - **Tailwind CSS**
-- **Sanity CMS** (optional at first — site ships with local tour data)
+- **Sanity CMS** — Orlando manages tours
 - **Vercel** hosting
 
 ## Local development
 
 ```bash
 npm install
+cp .env.example .env.local
 npm run dev
 ```
 
 Open [http://localhost:3000](http://localhost:3000) — auto-redirects to `/es`.
 
-## Deploy (Vercel + GitHub)
+## Sanity CMS setup
 
-1. Push this repo to GitHub
-2. Import project in [Vercel](https://vercel.com)
-3. Set environment variables:
-   - `NEXT_PUBLIC_SITE_URL=https://ghevanstravelperu.com`
-   - `NEXT_PUBLIC_SANITY_PROJECT_ID=` (when Sanity is connected)
-   - `NEXT_PUBLIC_SANITY_DATASET=production`
-4. Connect domain `ghevanstravelperu.com`
+### 1. Create the Sanity project
 
-## Sanity CMS (for Orlando)
+1. Go to [sanity.io/manage](https://www.sanity.io/manage) and sign in (Google is fine).
+2. **Create project** → name it `Ghevans Travel Peru`.
+3. Copy the **Project ID** (looks like `abc123xy`).
 
-1. Create a free project at [sanity.io](https://www.sanity.io)
-2. Copy project ID into `.env.local`
-3. Run `npx sanity dev` from project root (after linking)
-4. Invite Orlando as **Editor** (Google login)
-5. Orlando manages tours: add, edit, hide, delete
+### 2. Local env vars
 
-Until Sanity is connected, tours are loaded from `src/lib/tours.ts`.
+In `.env.local`:
+
+```env
+NEXT_PUBLIC_SANITY_PROJECT_ID=your-project-id
+NEXT_PUBLIC_SANITY_DATASET=production
+SANITY_API_WRITE_TOKEN=your-write-token
+```
+
+**Write token:** Sanity → Project → **API** → **Tokens** → Add token with **Editor** rights.
+
+### 3. CORS (required for Studio + website)
+
+Sanity → Project → **API** → **CORS origins** → Add:
+
+- `http://localhost:3000`
+- `https://ghevanstravelperu.vercel.app`
+- `https://ghevanstravelperu.com` (when domain is live)
+
+Allow credentials: **Yes**.
+
+### 4. Seed the 9 tours
+
+```bash
+npm run sanity:seed
+```
+
+This uploads tour images and creates all 9 tours in Sanity.
+
+### 5. Open Studio
+
+**Local:** [http://localhost:3000/studio](http://localhost:3000/studio)
+
+**Production:** `https://ghevanstravelperu.vercel.app/studio`
+
+### 6. Vercel env vars
+
+Add to Vercel → Settings → Environment Variables:
+
+| Variable | Value |
+|----------|--------|
+| `NEXT_PUBLIC_SANITY_PROJECT_ID` | your project ID |
+| `NEXT_PUBLIC_SANITY_DATASET` | `production` |
+| `NEXT_PUBLIC_SITE_URL` | `https://ghevanstravelperu.vercel.app` |
+| `SANITY_API_WRITE_TOKEN` | write token (for translate button) |
+| `GEMINI_API_KEY` | Google AI Studio key (free translate button) |
+
+Redeploy after adding vars.
+
+### 7. Invite Orlando
+
+Sanity → Project → **Members** → Invite by email → role **Editor**.
+
+Orlando only writes in **Español**. Use the **Traducir a EN / PT / FR** button to fill the other languages automatically.
 
 ## Orlando quick guide
 
-1. Open Sanity Studio (bookmark the URL)
-2. Click **Tour** → **Add** or edit existing
-3. Write in **Español** tab
-4. Set **Estado**: Publicado / Oculto / Borrador
-5. Save
+1. Open **Studio** (`/studio`)
+2. Click **Tours** → open a tour or create one
+3. Fill in Spanish: nombre, descripciones, destacados
+4. Tab **Precio y fotos**: precio, fotos, slug (Generate)
+5. Set **¿Visible en la web?** → Publicado
+6. Click **Publish**
+7. Click **Traducir a EN / PT / FR** (bottom action bar) — wait for “¡Listo!”
+8. Done — site updates within ~1 minute
 
-Hidden tours disappear from the website automatically.
+## Deploy
+
+Push to `main` on GitHub → Vercel auto-deploys.
 
 ## Contact
 

@@ -9,12 +9,15 @@ import {
   formatTourPrice,
   getAllTours,
   getTourBySlug,
+  getTourDuration,
 } from "@/lib/tours";
 import { buildTourWhatsAppMessage, buildWhatsAppUrl } from "@/lib/whatsapp";
 
-export function generateStaticParams() {
+export const revalidate = 60;
+
+export async function generateStaticParams() {
   const locales: Locale[] = ["es", "en", "pt", "fr"];
-  const tours = getAllTours();
+  const tours = await getAllTours();
   return locales.flatMap((locale) =>
     tours.map((tour) => ({ locale, slug: tour.slug })),
   );
@@ -26,7 +29,7 @@ export async function generateMetadata({
   params: Promise<{ locale: Locale; slug: string }>;
 }): Promise<Metadata> {
   const { locale, slug } = await params;
-  const tour = getTourBySlug(slug);
+  const tour = await getTourBySlug(slug);
   if (!tour) return {};
 
   const content = tour.content[locale];
@@ -46,7 +49,7 @@ export default async function TourDetailPage({
 }) {
   const { locale, slug } = await params;
   setRequestLocale(locale);
-  const tour = getTourBySlug(slug);
+  const tour = await getTourBySlug(slug);
   if (!tour) notFound();
 
   const t = await getTranslations("tours");
@@ -89,7 +92,7 @@ export default async function TourDetailPage({
 
           <div className="mt-4 flex flex-wrap gap-4 text-sm">
             <span className="rounded-full bg-teal/10 px-3 py-1 font-medium text-teal">
-              {t("duration")}: {tour.duration}
+              {t("duration")}: {getTourDuration(tour, locale)}
             </span>
             <span className="rounded-full bg-navy/10 px-3 py-1 font-medium text-navy">
               {t("price")}: {price}
