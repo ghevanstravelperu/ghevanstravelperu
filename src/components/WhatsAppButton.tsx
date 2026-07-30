@@ -1,8 +1,12 @@
 "use client";
 
 import { useEffect, useId, useRef, useState } from "react";
+import { usePathname } from "next/navigation";
 import { useLocale, useTranslations } from "next-intl";
 import { buildGeneralWhatsAppMessage, buildWhatsAppUrl } from "@/lib/whatsapp";
+
+const HINT_VISIBLE_MS = 8000;
+const HINT_RESHOW_MS = 45000;
 
 function WhatsAppIcon({ className }: { className?: string }) {
   return (
@@ -17,6 +21,7 @@ function WhatsAppIcon({ className }: { className?: string }) {
 
 export function WhatsAppButton({ tourName }: { tourName?: string }) {
   const locale = useLocale();
+  const pathname = usePathname();
   const t = useTranslations("whatsapp");
   const panelId = useId();
   const rootRef = useRef<HTMLDivElement>(null);
@@ -35,15 +40,32 @@ export function WhatsAppButton({ tourName }: { tourName?: string }) {
   const [draft, setDraft] = useState("");
   const [hintVisible, setHintVisible] = useState(true);
 
+  // Show the teaser on every page visit, then again every ~45s while closed.
   useEffect(() => {
-    const timer = window.setTimeout(() => setHintVisible(false), 8000);
-    return () => window.clearTimeout(timer);
-  }, []);
+    if (open) {
+      setHintVisible(false);
+      return;
+    }
+
+    let hideTimer = 0;
+
+    const showHint = () => {
+      setHintVisible(true);
+      window.clearTimeout(hideTimer);
+      hideTimer = window.setTimeout(() => setHintVisible(false), HINT_VISIBLE_MS);
+    };
+
+    showHint();
+    const reshowTimer = window.setInterval(showHint, HINT_RESHOW_MS);
+
+    return () => {
+      window.clearTimeout(hideTimer);
+      window.clearInterval(reshowTimer);
+    };
+  }, [pathname, open]);
 
   useEffect(() => {
     if (!open) return;
-
-    setHintVisible(false);
 
     const onPointerDown = (event: MouseEvent) => {
       if (!rootRef.current?.contains(event.target as Node)) {
