@@ -3,10 +3,11 @@ import { getTranslations, setRequestLocale } from "next-intl/server";
 import { ExperienceGallery } from "@/components/ExperienceGallery";
 import { Hero } from "@/components/Hero";
 import { TourCard } from "@/components/TourCard";
+import { ScrollCarousel } from "@/components/ScrollCarousel";
 import { Link } from "@/i18n/navigation";
 import { buildAlternateLanguages } from "@/lib/seo";
 import type { Locale } from "@/lib/constants";
-import { getFeaturedTours } from "@/lib/tours";
+import { getAllTours } from "@/lib/tours";
 
 export async function generateMetadata({
   params,
@@ -35,7 +36,7 @@ export default async function HomePage({
   const { locale } = await params;
   setRequestLocale(locale);
   const t = await getTranslations("home");
-  const featuredTours = await getFeaturedTours();
+  const tours = await getAllTours();
 
   return (
     <>
@@ -50,11 +51,16 @@ export default async function HomePage({
               {t("toursSubtitle")}
             </p>
           </div>
-          <div className="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-2 xl:grid-cols-4">
-            {featuredTours.map((tour) => (
-              <TourCard key={tour.id} tour={tour} locale={locale} />
+          <ScrollCarousel previousLabel="Previous tours" nextLabel="Next tours">
+            {tours.map((tour) => (
+              <div
+                key={tour.id}
+                className="w-[calc(100%-1.5rem)] shrink-0 snap-start sm:w-[calc((100%-1.5rem)/2)] xl:w-[calc((100%-4.5rem)/4)]"
+              >
+                <TourCard tour={tour} locale={locale} />
+              </div>
             ))}
-          </div>
+          </ScrollCarousel>
           <div className="mt-10 text-center">
             <Link
               href="/tours"

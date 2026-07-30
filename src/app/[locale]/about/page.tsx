@@ -41,14 +41,35 @@ export default async function AboutPage({
             <p>{t("p3")}</p>
           </div>
         </div>
-        <div className="relative aspect-[4/5] overflow-hidden rounded-3xl shadow-lg">
-          <Image
-            src="/images/experiences/machu-1.jpg"
-            alt="Ghevans Travel Peru experience"
-            fill
-            className="object-cover"
-            sizes="(max-width: 1024px) 100vw, 50vw"
-          />
+        <div className="grid grid-cols-2 gap-3 sm:gap-4">
+          <div className="relative aspect-[3/5] overflow-hidden rounded-3xl shadow-lg">
+            <Image
+              src="/images/about/family-valley.jpg"
+              alt="Ghevans Travel Peru family in the Sacred Valley"
+              fill
+              className="object-cover"
+              sizes="(max-width: 1024px) 50vw, 25vw"
+              priority
+            />
+          </div>
+          <div className="relative aspect-[3/5] overflow-hidden rounded-3xl shadow-lg">
+            <Image
+              src="/images/about/family-waterfall.jpg"
+              alt="Ghevans Travel Peru family at a waterfall in Peru"
+              fill
+              className="object-cover"
+              sizes="(max-width: 1024px) 50vw, 25vw"
+            />
+          </div>
+          <div className="relative col-span-2 aspect-[4/3] overflow-hidden rounded-3xl shadow-lg">
+            <Image
+              src="/images/about/family-lagoon.jpg"
+              alt="Ghevans Travel Peru family at a lagoon in Peru"
+              fill
+              className="object-cover object-top"
+              sizes="(max-width: 1024px) 100vw, 50vw"
+            />
+          </div>
         </div>
       </div>
     </section>

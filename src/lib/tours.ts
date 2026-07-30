@@ -79,4 +79,5 @@ export const EXPERIENCE_IMAGES = [
   "/images/experiences/atv-2.jpg",
   "/images/experiences/machu-4.jpg",
   "/images/experiences/humantay-2.jpg",
+  "/images/experiences/machu-1.jpg",
 ];
