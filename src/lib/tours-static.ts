@@ -4,11 +4,17 @@ export type TourStatus = "published" | "hidden" | "draft";
 
 export type PriceDisplay = "soles" | "dollars" | "both";
 
+export type ItineraryStop = {
+  title: string;
+  detail?: string;
+};
+
 export type LocalizedTourContent = {
   name: string;
   shortDescription: string;
   fullDescription: string;
   highlights: string[];
+  itinerary?: ItineraryStop[];
   duration?: string;
 };
 
@@ -25,6 +31,9 @@ export type Tour = {
   featured: boolean;
   sortOrder: number;
   image: string;
+  /** Intrinsic pixel size of the main image, when known (from Sanity). */
+  imageWidth?: number;
+  imageHeight?: number;
   gallery: string[];
   content: Record<Locale, LocalizedTourContent>;
 };
@@ -479,12 +488,12 @@ export const staticTours: Tour[] = [
     price: 150,
     featured: false,
     sortOrder: 8,
-    image: "/images/tours/cuatrimotos-huaypo.jpg",
+    image: "/images/experiences/atv-3.jpg",
     gallery: [
+      "/images/experiences/cuatrimotos-lake.jpg",
       "/images/experiences/atv-1.jpg",
       "/images/experiences/atv-2.jpg",
-      "/images/experiences/atv-3.jpg",
-      "/images/experiences/cuatrimotos-lake.jpg",
+      "/images/tours/cuatrimotos-huaypo.jpg",
     ],
     content: {
       es: {

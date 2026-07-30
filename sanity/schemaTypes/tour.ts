@@ -93,6 +93,93 @@ export const tour = defineType({
       8,
     ),
     defineField({
+      name: "itinerary",
+      title: "Itinerario del día",
+      description:
+        "Pasos del tour en orden (añade cuantos quieras). Arrastra para reordenar. Sin horas — solo el orden importa. Si lo dejas vacío, no se muestra en la web.",
+      type: "array",
+      group: "contenido",
+      of: [
+        {
+          type: "object",
+          name: "stop",
+          title: "Parada",
+          fields: [
+            defineField({
+              name: "title",
+              title: "Título de la parada",
+              description: "Ej: Recogida en el hotel",
+              type: "object",
+              fields: [
+                defineField({
+                  name: "es",
+                  title: "Título",
+                  type: "string",
+                  validation: (Rule) => Rule.required().error("Obligatorio"),
+                }),
+                defineField({
+                  name: "en",
+                  title: "English",
+                  type: "string",
+                  hidden: true,
+                }),
+                defineField({
+                  name: "pt",
+                  title: "Português",
+                  type: "string",
+                  hidden: true,
+                }),
+                defineField({
+                  name: "fr",
+                  title: "Français",
+                  type: "string",
+                  hidden: true,
+                }),
+              ],
+            }),
+            defineField({
+              name: "detail",
+              title: "Detalle (opcional)",
+              description: "Una frase corta. Ej: Van privada, encuentro con el guía",
+              type: "object",
+              fields: [
+                defineField({
+                  name: "es",
+                  title: "Detalle",
+                  type: "text",
+                  rows: 2,
+                }),
+                defineField({
+                  name: "en",
+                  title: "English",
+                  type: "text",
+                  hidden: true,
+                }),
+                defineField({
+                  name: "pt",
+                  title: "Português",
+                  type: "text",
+                  hidden: true,
+                }),
+                defineField({
+                  name: "fr",
+                  title: "Français",
+                  type: "text",
+                  hidden: true,
+                }),
+              ],
+            }),
+          ],
+          preview: {
+            select: {
+              title: "title.es",
+              subtitle: "detail.es",
+            },
+          },
+        },
+      ],
+    }),
+    defineField({
       name: "highlightsEs",
       title: "Qué incluye / destacados",
       description: "Un punto por línea. Ej: Recogida en hotel · Almuerzo incluido",

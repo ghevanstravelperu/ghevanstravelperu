@@ -43,6 +43,8 @@
     "duration": "Durée",
     "price": "Prix",
     "highlights": "Points forts",
+    "itinerary": "Itinéraire",
+    "itineraryNote": "L'ordre peut légèrement varier selon la météo, le trafic ou les conditions du jour.",
     "bookTour": "Réserver ce tour",
     "gallery": "Galerie"
   },
@@ -99,6 +101,7 @@
   },
   "whatsapp": {
     "label": "WhatsApp",
+    "headerCta": "Contactez-nous",
     "tooltip": "Écrivez-nous sur WhatsApp"
   },
   "language": {

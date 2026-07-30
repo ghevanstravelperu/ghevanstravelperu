@@ -1,14 +1,22 @@
 import { NextResponse } from "next/server";
+import { revalidatePath } from "next/cache";
 import { createSanityWriteClient } from "@/lib/sanity/client";
 import { translateTourContent } from "@/lib/sanity/translate";
 import { slugify } from "@/lib/slugify";
+import { LOCALES } from "@/lib/constants";
 
 type TourDoc = {
+  _id?: string;
   name?: { es?: string };
   shortDescription?: { es?: string };
   fullDescription?: { es?: string };
   duration?: { es?: string } | string;
   highlightsEs?: string;
+  itinerary?: {
+    _key: string;
+    title?: { es?: string; en?: string; pt?: string; fr?: string };
+    detail?: { es?: string; en?: string; pt?: string; fr?: string };
+  }[];
 };
 
 function splitLines(text?: string) {
@@ -39,12 +47,19 @@ export async function POST(request: Request) {
       });
     }
 
+    const publishedId = id.replace(/^drafts\./, "");
+    const draftId = `drafts.${publishedId}`;
+
     const client = createSanityWriteClient(token);
-    const doc = await client.fetch<TourDoc>(
-      `*[_id == $id || _id == "drafts." + $id][0]{
-        name, shortDescription, fullDescription, duration, highlightsEs
+    // Prefer the draft so unpublished itinerary edits are not wiped by an older published doc.
+    const doc = await client.fetch<TourDoc | null>(
+      `coalesce(
+        *[_id == $draftId][0],
+        *[_id == $publishedId][0]
+      ){
+        _id, name, shortDescription, fullDescription, duration, highlightsEs, itinerary
       }`,
-      { id: id.replace(/^drafts\./, "") },
+      { draftId, publishedId },
     );
 
     if (!doc?.name?.es) {
@@ -53,16 +68,44 @@ export async function POST(request: Request) {
       });
     }
 
+    const hasItineraryField = Array.isArray(doc.itinerary);
+    const sourceItinerary = (doc.itinerary ?? []).filter((stop) =>
+      Boolean(stop.title?.es?.trim()),
+    );
+
     const translations = await translateTourContent({
       name: doc.name.es,
       shortDescription: doc.shortDescription?.es || "",
       fullDescription: doc.fullDescription?.es || "",
       duration: durationEs(doc),
       highlights: splitLines(doc.highlightsEs),
+      itinerary: sourceItinerary.map((stop) => ({
+        title: stop.title?.es || "",
+        detail: stop.detail?.es || "",
+      })),
     });
 
-    const docId = id.replace(/^drafts\./, "");
-    const patch = {
+    const translatedItinerary = sourceItinerary.map((stop, index) => {
+      const translated = translations.itinerary[index];
+      return {
+        _key: stop._key,
+        _type: "stop",
+        title: {
+          es: stop.title?.es || "",
+          en: translated?.title.en || stop.title?.en || "",
+          pt: translated?.title.pt || stop.title?.pt || "",
+          fr: translated?.title.fr || stop.title?.fr || "",
+        },
+        detail: {
+          es: stop.detail?.es || "",
+          en: translated?.detail.en || stop.detail?.en || "",
+          pt: translated?.detail.pt || stop.detail?.pt || "",
+          fr: translated?.detail.fr || stop.detail?.fr || "",
+        },
+      };
+    });
+
+    const patch: Record<string, unknown> = {
       slug: { _type: "slug", current: slugify(doc.name.es) },
       "name.en": translations.name.en,
       "name.pt": translations.name.pt,
@@ -81,9 +124,13 @@ export async function POST(request: Request) {
       highlightsFr: translations.highlights.fr,
     };
 
-    const targets = id.startsWith("drafts.")
-      ? [`drafts.${docId}`]
-      : [docId, `drafts.${docId}`];
+    // Only write itinerary when the source doc already has that field,
+    // so we never wipe stops that lived only on the other version.
+    if (hasItineraryField) {
+      patch.itinerary = translatedItinerary;
+    }
+
+    const targets = [draftId, publishedId];
 
     for (const targetId of targets) {
       const exists = await client.fetch<boolean>(
@@ -93,6 +140,15 @@ export async function POST(request: Request) {
       if (exists) {
         await client.patch(targetId).set(patch).commit();
       }
+    }
+
+    const slug = slugify(doc.name.es);
+    revalidatePath("/");
+    revalidatePath("/tours");
+    for (const locale of LOCALES) {
+      revalidatePath(`/${locale}`);
+      revalidatePath(`/${locale}/tours`);
+      revalidatePath(`/${locale}/tours/${slug}`);
     }
 
     return NextResponse.json({ ok: true });

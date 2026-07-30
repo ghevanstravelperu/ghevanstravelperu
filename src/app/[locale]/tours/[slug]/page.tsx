@@ -12,8 +12,10 @@ import {
   getTourDuration,
 } from "@/lib/tours";
 import { buildTourWhatsAppMessage, buildWhatsAppUrl } from "@/lib/whatsapp";
+import { TourItinerary } from "@/components/TourItinerary";
+import { ScrollCarousel } from "@/components/ScrollCarousel";
 
-export const revalidate = 60;
+export const revalidate = 0;
 
 export async function generateStaticParams() {
   const locales: Locale[] = ["es", "en", "pt", "fr"];
@@ -70,18 +72,6 @@ export default async function TourDetailPage({
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
       <article>
-        <div className="relative h-[45vh] min-h-[320px] w-full">
-          <Image
-            src={tour.image}
-            alt={content.name}
-            fill
-            className="object-cover"
-            priority
-            sizes="100vw"
-          />
-          <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent" />
-        </div>
-
         <div className="mx-auto max-w-4xl px-4 py-10 sm:px-6">
           <Link href="/tours" className="text-sm font-medium text-teal hover:underline">
             ← {t("viewDetails")}
@@ -99,9 +89,40 @@ export default async function TourDetailPage({
             </span>
           </div>
 
+          <div
+            className={`mt-8 overflow-hidden rounded-3xl ${
+              tour.imageHeight &&
+              tour.imageWidth &&
+              tour.imageHeight > tour.imageWidth
+                ? "mx-auto max-w-md sm:max-w-lg"
+                : "w-full"
+            }`}
+          >
+            <Image
+              src={tour.image}
+              alt={content.name}
+              width={tour.imageWidth ?? 1600}
+              height={tour.imageHeight ?? 1200}
+              className="h-auto w-full"
+              priority
+              sizes={
+                tour.imageHeight &&
+                tour.imageWidth &&
+                tour.imageHeight > tour.imageWidth
+                  ? "(max-width: 640px) 100vw, 512px"
+                  : "(max-width: 896px) 100vw, 896px"
+              }
+            />
+          </div>
+
           <p className="mt-8 text-lg leading-relaxed text-stone-700">
             {content.fullDescription}
           </p>
+
+          <TourItinerary
+            title={t("itinerary")}
+            stops={content.itinerary ?? []}
+          />
 
           <div className="mt-8">
             <h2 className="font-serif text-2xl text-navy">{t("highlights")}</h2>
@@ -121,19 +142,27 @@ export default async function TourDetailPage({
           {tour.gallery.length > 0 && (
             <div className="mt-10">
               <h2 className="font-serif text-2xl text-navy">{t("gallery")}</h2>
-              <div className="mt-4 grid gap-3 sm:grid-cols-2">
+              <ScrollCarousel
+                className="mt-4"
+                gapClassName="gap-4"
+                previousLabel="Previous photos"
+                nextLabel="Next photos"
+              >
                 {tour.gallery.map((src) => (
-                  <div key={src} className="relative aspect-[4/3] overflow-hidden rounded-2xl">
+                  <div
+                    key={src}
+                    className="relative aspect-[4/5] w-[calc((100%-1rem)/2)] shrink-0 snap-start overflow-hidden rounded-2xl sm:w-[calc((100%-2rem)/3)]"
+                  >
                     <Image
                       src={src}
                       alt={content.name}
                       fill
-                      className="object-cover"
-                      sizes="(max-width: 768px) 100vw, 50vw"
+                      className="object-cover transition duration-700 ease-out hover:scale-[1.03]"
+                      sizes="(max-width: 640px) 50vw, 33vw"
                     />
                   </div>
                 ))}
-              </div>
+              </ScrollCarousel>
             </div>
           )}
 

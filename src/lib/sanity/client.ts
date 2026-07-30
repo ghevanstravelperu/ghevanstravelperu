@@ -10,7 +10,8 @@ export const sanityClient = createClient({
   projectId: sanityProjectId || "placeholder",
   dataset: sanityDataset,
   apiVersion: "2024-01-01",
-  useCdn: true,
+  // Fresh published content after Studio edits (CDN can lag and hide new fields).
+  useCdn: false,
 });
 
 export function createSanityWriteClient(token: string) {

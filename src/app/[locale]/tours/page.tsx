@@ -22,7 +22,7 @@ export async function generateMetadata({
   };
 }
 
-export const revalidate = 60;
+export const revalidate = 0;
 
 export default async function ToursPage({
   params,

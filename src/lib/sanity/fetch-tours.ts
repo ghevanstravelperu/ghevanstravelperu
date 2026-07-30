@@ -1,13 +1,14 @@
 import type { Locale } from "@/lib/constants";
 import {
   staticTours,
+  type ItineraryStop,
   type LocalizedTourContent,
   type PriceDisplay,
   type Tour,
 } from "@/lib/tours-static";
 import { imageUrl } from "./image";
 import { isSanityConfigured, sanityClient } from "./client";
-import type { SanityTourDocument } from "./types";
+import type { SanityItineraryStop, SanityTourDocument } from "./types";
 
 const TOURS_QUERY = `*[_type == "tour"] | order(sortOrder asc) {
   _id,
@@ -17,6 +18,7 @@ const TOURS_QUERY = `*[_type == "tour"] | order(sortOrder asc) {
   shortDescription,
   fullDescription,
   duration,
+  itinerary,
   highlightsEs,
   highlightsEn,
   highlightsPt,
@@ -29,6 +31,8 @@ const TOURS_QUERY = `*[_type == "tour"] | order(sortOrder asc) {
   featured,
   sortOrder,
   image,
+  "imageWidth": image.asset->metadata.dimensions.width,
+  "imageHeight": image.asset->metadata.dimensions.height,
   gallery
 }`;
 
@@ -47,12 +51,30 @@ function resolveDuration(
 ): string {
   const duration = doc.duration;
   if (typeof duration === "string") return duration;
-  return (
-    duration?.[locale] ||
-    duration?.es ||
-    fallback ||
-    ""
-  );
+  return duration?.[locale] || duration?.es || fallback || "";
+}
+
+function resolveItinerary(
+  stops: SanityItineraryStop[] | undefined,
+  locale: Locale,
+  fallback?: ItineraryStop[],
+): ItineraryStop[] {
+  const fromSanity: ItineraryStop[] = [];
+
+  for (const stop of stops ?? []) {
+    const title = stop.title?.[locale]?.trim() || stop.title?.es?.trim() || "";
+    if (!title) continue;
+
+    const localizedDetail = stop.detail?.[locale]?.trim();
+    const fallbackDetail =
+      locale !== "es" ? stop.detail?.es?.trim() : undefined;
+    const detail = localizedDetail || fallbackDetail || undefined;
+
+    fromSanity.push(detail ? { title, detail } : { title });
+  }
+
+  if (fromSanity.length > 0) return fromSanity;
+  return fallback ?? [];
 }
 
 function localizedContent(
@@ -85,6 +107,7 @@ function localizedContent(
       doc.fullDescription?.es ||
       "",
     highlights,
+    itinerary: resolveItinerary(doc.itinerary, locale, fallback?.itinerary),
     duration: resolveDuration(doc, locale, fallback?.duration),
   };
 }
@@ -110,13 +133,19 @@ function mapSanityTour(doc: SanityTourDocument): Tour {
     status: doc.status,
     duration: resolveDuration(doc, "es", fallback?.duration),
     price: doc.customQuote ? null : (doc.price ?? fallback?.price ?? null),
-    priceUsd: doc.customQuote ? null : (doc.priceUsd ?? fallback?.priceUsd ?? null),
-    priceDisplay: (doc.priceDisplay ?? fallback?.priceDisplay ?? "soles") as PriceDisplay,
+    priceUsd: doc.customQuote
+      ? null
+      : (doc.priceUsd ?? fallback?.priceUsd ?? null),
+    priceDisplay: (doc.priceDisplay ??
+      fallback?.priceDisplay ??
+      "soles") as PriceDisplay,
     pricePrefix: doc.pricePrefix ?? fallback?.pricePrefix,
     customQuote: doc.customQuote ?? fallback?.customQuote,
     featured: doc.featured ?? fallback?.featured ?? false,
     sortOrder: doc.sortOrder ?? fallback?.sortOrder ?? 999,
     image: mainImage,
+    imageWidth: doc.imageWidth ?? fallback?.imageWidth,
+    imageHeight: doc.imageHeight ?? fallback?.imageHeight,
     gallery,
     content,
   };
@@ -126,7 +155,14 @@ export async function fetchToursFromSanity(): Promise<Tour[] | null> {
   if (!isSanityConfigured) return null;
 
   try {
-    const docs = await sanityClient.fetch<SanityTourDocument[]>(TOURS_QUERY);
+    const docs = await sanityClient.fetch<SanityTourDocument[]>(
+      TOURS_QUERY,
+      {},
+      {
+        // Studio edits must show up on the next request (CDN/ISR lag hid itineraries).
+        cache: "no-store",
+      },
+    );
     if (!docs.length) return null;
     return docs.map(mapSanityTour);
   } catch (error) {

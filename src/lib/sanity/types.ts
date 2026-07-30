@@ -11,6 +11,12 @@ export type SanityLocalizedText = SanityLocalizedString;
 
 export type PriceDisplay = "soles" | "dollars" | "both";
 
+export type SanityItineraryStop = {
+  _key?: string;
+  title?: SanityLocalizedString;
+  detail?: SanityLocalizedText;
+};
+
 export type SanityTourDocument = {
   _id: string;
   status: "published" | "hidden" | "draft";
@@ -19,6 +25,7 @@ export type SanityTourDocument = {
   shortDescription: SanityLocalizedText;
   fullDescription: SanityLocalizedText;
   duration?: SanityLocalizedString | string;
+  itinerary?: SanityItineraryStop[];
   highlightsEs?: string;
   highlightsEn?: string;
   highlightsPt?: string;
@@ -31,5 +38,7 @@ export type SanityTourDocument = {
   featured?: boolean;
   sortOrder?: number;
   image?: SanityImageSource;
+  imageWidth?: number;
+  imageHeight?: number;
   gallery?: SanityImageSource[];
 };

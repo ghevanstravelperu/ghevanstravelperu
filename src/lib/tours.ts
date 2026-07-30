@@ -2,13 +2,14 @@ import type { Locale } from "./constants";
 import { fetchToursFromSanity } from "./sanity/fetch-tours";
 import {
   staticTours,
+  type ItineraryStop,
   type LocalizedTourContent,
   type PriceDisplay,
   type Tour,
   type TourStatus,
 } from "./tours-static";
 
-export type { Tour, TourStatus, LocalizedTourContent, PriceDisplay };
+export type { Tour, TourStatus, LocalizedTourContent, PriceDisplay, ItineraryStop };
 export { staticTours };
 
 export function getTourDuration(tour: Tour, locale: Locale): string {
