@@ -102,7 +102,14 @@
   "whatsapp": {
     "label": "WhatsApp",
     "headerCta": "Fale conosco",
-    "tooltip": "Fale conosco no WhatsApp"
+    "tooltip": "Fale conosco no WhatsApp",
+    "chatTitle": "Ghevans Travel Peru",
+    "chatStatus": "Online",
+    "greeting": "Olá! 👋 Sou da equipe Ghevans. Me diga qual tour te interessa ou quais datas você tem e eu te ajudo pelo WhatsApp.",
+    "teaser": "Tem uma pergunta? Fale conosco 💬",
+    "placeholder": "Escreva sua mensagem...",
+    "send": "Enviar pelo WhatsApp",
+    "close": "Fechar chat"
   },
   "language": {
     "label": "Idioma"
