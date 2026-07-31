@@ -1,10 +1,11 @@
 import Image from "next/image";
 import { getTranslations } from "next-intl/server";
 import { ScrollCarousel } from "@/components/ScrollCarousel";
-import { EXPERIENCE_IMAGES } from "@/lib/tours";
+import { getHomeGalleryImages } from "@/lib/sanity/fetch-gallery";
 
 export async function ExperienceGallery() {
   const t = await getTranslations("home");
+  const images = await getHomeGalleryImages();
 
   return (
     <section className="bg-white py-14 sm:py-16">
@@ -21,14 +22,14 @@ export async function ExperienceGallery() {
           previousLabel="Previous photos"
           nextLabel="Next photos"
         >
-          {EXPERIENCE_IMAGES.map((src) => (
+          {images.map((image) => (
             <div
-              key={src}
+              key={image.src}
               className="relative aspect-[4/5] w-[calc((100%-1rem)/2)] shrink-0 snap-start overflow-hidden rounded-2xl sm:w-[calc((100%-2rem)/3)] lg:w-[calc((100%-3rem)/4)]"
             >
               <Image
-                src={src}
-                alt="Travel experience in Peru"
+                src={image.src}
+                alt={image.alt}
                 fill
                 className="object-cover transition duration-700 ease-out hover:scale-[1.03]"
                 sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 25vw"

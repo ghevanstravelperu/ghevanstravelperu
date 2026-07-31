@@ -20,6 +20,15 @@ export default defineConfig({
             S.listItem()
               .title("Tours")
               .child(S.documentTypeList("tour").title("Tours")),
+            S.listItem()
+              .title("Fotos del carrusel")
+              .id("homeGallery")
+              .child(
+                S.document()
+                  .schemaType("homeGallery")
+                  .documentId("homeGallery")
+                  .title("Fotos del carrusel"),
+              ),
           ]),
     }),
   ],
@@ -34,7 +43,19 @@ export default defineConfig({
     types: schemaTypes,
   },
   document: {
-    actions: (prev, { schemaType }) =>
-      schemaType === "tour" ? [...prev, translateTourAction] : prev,
+    actions: (prev, { schemaType }) => {
+      if (schemaType === "tour") {
+        return [...prev, translateTourAction];
+      }
+      // Singleton — keep Publish / Discard only.
+      if (schemaType === "homeGallery") {
+        return prev.filter(({ action }) =>
+          action === "publish" ||
+          action === "discardChanges" ||
+          action === "restore",
+        );
+      }
+      return prev;
+    },
   },
 });
