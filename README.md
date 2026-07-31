@@ -60,9 +60,9 @@ This uploads tour images and creates all 9 tours in Sanity.
 
 ### 5. Open Studio
 
-**Local:** [http://localhost:3000/studio](http://localhost:3000/studio)
+**Local:** [http://localhost:3000/editar](http://localhost:3000/editar)
 
-**Production:** `https://ghevanstravelperu.com/studio`
+**Production:** `https://ghevanstravelperu.com/editar`
 
 ### 6. Vercel env vars
 
@@ -86,7 +86,7 @@ Orlando only writes in **Español**. Use the **Traducir a EN / PT / FR** button 
 
 ## Orlando quick guide
 
-1. Open **Studio** (`/studio`)
+1. Open **Editar** (`/editar`)
 2. Click **Tours** → open a tour or create one
 3. Fill in Spanish: nombre, descripciones, destacados
 4. Tab **Precio y fotos**: precio, fotos, slug (Generate)

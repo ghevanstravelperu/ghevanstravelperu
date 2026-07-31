@@ -8,7 +8,7 @@ export default defineConfig({
   title: "Ghevans Travel — Tours",
   projectId: process.env.NEXT_PUBLIC_SANITY_PROJECT_ID || "your-project-id",
   dataset: process.env.NEXT_PUBLIC_SANITY_DATASET || "production",
-  basePath: "/studio",
+  basePath: "/editar",
   plugins: [
     structureTool({
       structure: (S) =>
