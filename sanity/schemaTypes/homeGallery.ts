@@ -19,8 +19,9 @@ export const homeGallery = defineType({
           fields: [
             defineField({
               name: "alt",
-              title: "Descripción corta (opcional)",
-              description: "Ej: Machu Picchu al amanecer",
+              title: "Descripción (opcional)",
+              description:
+                "Solo para accesibilidad / SEO. Los visitantes no la ven como título. Ej: Machu Picchu al amanecer. Puedes dejarla vacía.",
               type: "string",
             }),
           ],
