@@ -14,6 +14,20 @@ const nextConfig: NextConfig = {
       },
     ],
   },
+  async redirects() {
+    return [
+      {
+        source: "/studio",
+        destination: "/editar",
+        permanent: true,
+      },
+      {
+        source: "/studio/:path*",
+        destination: "/editar/:path*",
+        permanent: true,
+      },
+    ];
+  },
 };
 
 export default withNextIntl(nextConfig);
