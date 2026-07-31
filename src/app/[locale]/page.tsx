@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import { ExperienceGallery } from "@/components/ExperienceGallery";
 import { Hero } from "@/components/Hero";
@@ -72,19 +73,53 @@ export default async function HomePage({
         </div>
       </section>
 
-      <section className="border-y border-stone-200 bg-[#f3ece2] py-14">
-        <div className="mx-auto max-w-6xl px-4 sm:px-6">
-          <h2 className="font-serif text-2xl text-navy">{t("whyTitle")}</h2>
-          <ul className="mt-6 grid gap-4 md:grid-cols-3">
-            {[t("why1"), t("why2"), t("why3")].map((item) => (
+      <section className="relative overflow-hidden py-16 sm:py-20">
+        <Image
+          src="/images/about/family-valley.jpg"
+          alt=""
+          fill
+          className="object-cover object-center"
+          sizes="100vw"
+          aria-hidden
+        />
+        <div className="absolute inset-0 bg-navy/88" />
+        <div className="absolute inset-0 bg-gradient-to-t from-navy via-transparent to-navy/40" />
+
+        <div className="relative z-10 mx-auto max-w-6xl px-4 sm:px-6">
+          <div className="max-w-2xl">
+            <h2 className="font-serif text-3xl text-white sm:text-4xl">
+              {t("whyTitle")}
+            </h2>
+            <p className="mt-4 text-lg leading-relaxed text-white/75">
+              {t("whySubtitle")}
+            </p>
+          </div>
+
+          <ol className="mt-12 grid gap-10 border-t border-white/15 pt-10 md:grid-cols-3 md:gap-8">
+            {(
+              [
+                { title: t("why1Title"), body: t("why1Body"), n: "01" },
+                { title: t("why2Title"), body: t("why2Body"), n: "02" },
+                { title: t("why3Title"), body: t("why3Body"), n: "03" },
+              ] as const
+            ).map((item, i) => (
               <li
-                key={item}
-                className="rounded-2xl bg-white p-5 text-sm leading-relaxed text-stone-700 shadow-sm"
+                key={item.n}
+                className="why-point group"
+                style={{ animationDelay: `${i * 120}ms` }}
               >
-                {item}
+                <span className="font-serif text-4xl text-teal transition duration-500 group-hover:text-orange sm:text-5xl">
+                  {item.n}
+                </span>
+                <h3 className="mt-4 font-serif text-xl text-white">
+                  {item.title}
+                </h3>
+                <p className="mt-2 max-w-sm text-base leading-relaxed text-white/70">
+                  {item.body}
+                </p>
               </li>
             ))}
-          </ul>
+          </ol>
         </div>
       </section>
 
