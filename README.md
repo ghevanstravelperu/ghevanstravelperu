@@ -45,8 +45,8 @@ SANITY_API_WRITE_TOKEN=your-write-token
 Sanity → Project → **API** → **CORS origins** → Add:
 
 - `http://localhost:3000`
+- `https://ghevanstravelperu.com`
 - `https://ghevanstravelperu.vercel.app`
-- `https://ghevanstravelperu.com` (when domain is live)
 
 Allow credentials: **Yes**.
 
@@ -62,7 +62,7 @@ This uploads tour images and creates all 9 tours in Sanity.
 
 **Local:** [http://localhost:3000/studio](http://localhost:3000/studio)
 
-**Production:** `https://ghevanstravelperu.vercel.app/studio`
+**Production:** `https://ghevanstravelperu.com/studio`
 
 ### 6. Vercel env vars
 
@@ -72,7 +72,7 @@ Add to Vercel → Settings → Environment Variables:
 |----------|--------|
 | `NEXT_PUBLIC_SANITY_PROJECT_ID` | your project ID |
 | `NEXT_PUBLIC_SANITY_DATASET` | `production` |
-| `NEXT_PUBLIC_SITE_URL` | `https://ghevanstravelperu.vercel.app` |
+| `NEXT_PUBLIC_SITE_URL` | `https://ghevanstravelperu.com` |
 | `SANITY_API_WRITE_TOKEN` | write token (for translate button) |
 | `GEMINI_API_KEY` | Google AI Studio key (free translate button) |
 

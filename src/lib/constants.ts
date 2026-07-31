@@ -1,6 +1,6 @@
 export const SITE_NAME = "Ghevans Travel Peru";
 export const SITE_URL =
-  process.env.NEXT_PUBLIC_SITE_URL ?? "https://ghevanstravelperu.vercel.app";
+  process.env.NEXT_PUBLIC_SITE_URL ?? "https://ghevanstravelperu.com";
 export const WHATSAPP_NUMBER = "51983344198";
 export const WHATSAPP_DISPLAY = "+51 983 344 198";
 export const GOOGLE_MAPS_URL =
