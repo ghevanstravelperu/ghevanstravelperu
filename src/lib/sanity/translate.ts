@@ -164,6 +164,27 @@ function normalizePayload(parsed: GeminiTourPayload): TourTranslations {
   };
 }
 
+const TRANSLATION_MODELS = [
+  "gemini-3.6-flash",
+  "gemini-3.5-flash-lite",
+  "gemini-3.5-flash",
+  "gemini-2.5-flash",
+] as const;
+
+function isRetryableModelError(error: unknown): boolean {
+  const text =
+    error instanceof Error
+      ? `${error.name} ${error.message}`
+      : String(error ?? "");
+  return /503|UNAVAILABLE|high demand|overloaded|resource.?exhausted|429|quota/i.test(
+    text,
+  );
+}
+
+async function sleep(ms: number) {
+  await new Promise((resolve) => setTimeout(resolve, ms));
+}
+
 export async function translateTourContent(input: {
   name: string;
   shortDescription: string;
@@ -198,21 +219,42 @@ ${JSON.stringify(
 )}`;
 
   const ai = new GoogleGenAI({ apiKey });
+  let lastError: unknown;
 
-  const response = await ai.models.generateContent({
-    model: "gemini-3.5-flash",
-    contents: prompt,
-    config: {
-      temperature: 0.1,
-      responseMimeType: "application/json",
-      responseJsonSchema: translationResponseSchema,
-    },
-  });
+  for (const model of TRANSLATION_MODELS) {
+    for (let attempt = 0; attempt < 2; attempt++) {
+      try {
+        const response = await ai.models.generateContent({
+          model,
+          contents: prompt,
+          config: {
+            temperature: 0.1,
+            responseMimeType: "application/json",
+            responseJsonSchema: translationResponseSchema,
+          },
+        });
 
-  const content = response.text;
-  if (!content) {
-    throw new Error("Empty translation response");
+        const content = response.text;
+        if (!content) {
+          throw new Error("Empty translation response");
+        }
+
+        return normalizePayload(parseTranslationPayload(content));
+      } catch (error) {
+        lastError = error;
+        if (!isRetryableModelError(error)) {
+          throw error;
+        }
+        if (attempt === 0) {
+          await sleep(800);
+        }
+      }
+    }
   }
 
-  return normalizePayload(parseTranslationPayload(content));
+  throw new Error(
+    lastError instanceof Error
+      ? `El servicio de traducción está saturado. Intenta de nuevo en un minuto.\n\n${lastError.message}`
+      : "El servicio de traducción está saturado. Intenta de nuevo en un minuto.",
+  );
 }

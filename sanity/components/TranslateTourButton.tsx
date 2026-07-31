@@ -31,8 +31,11 @@ export function TranslateTourButton(_props: StringInputProps) {
         error instanceof Error && error.message
           ? error.message
           : "Error desconocido";
+      const overloaded = /503|UNAVAILABLE|high demand|saturado/i.test(detail);
       window.alert(
-        `No se pudo traducir.\n\n${detail}\n\nAsegúrate de tener contenido en español y GEMINI_API_KEY configurada.`,
+        overloaded
+          ? `No se pudo traducir ahora.\n\nEl servicio de IA está saturado. Espera un minuto e intenta de nuevo.`
+          : `No se pudo traducir.\n\n${detail}\n\nRevisa que el tour tenga contenido en español.`,
       );
     } finally {
       setLoading(false);
