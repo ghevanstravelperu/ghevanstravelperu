@@ -1,4 +1,5 @@
 import { Analytics } from "@vercel/analytics/next";
+import type { Metadata } from "next";
 import { NextIntlClientProvider } from "next-intl";
 import { getMessages, setRequestLocale } from "next-intl/server";
 import { notFound } from "next/navigation";
@@ -7,6 +8,7 @@ import { Footer } from "@/components/Footer";
 import { Header } from "@/components/Header";
 import { WhatsAppButton } from "@/components/WhatsAppButton";
 import { routing } from "@/i18n/routing";
+import { FAVICON_VERSION } from "@/lib/constants";
 import { buildOrganizationJsonLd } from "@/lib/seo";
 import "../globals.css";
 
@@ -19,6 +21,13 @@ const sourceSans = Source_Sans_3({
   subsets: ["latin"],
   variable: "--font-source-sans",
 });
+
+export const metadata: Metadata = {
+  icons: {
+    // Version query busts aggressive browser caches of /favicon.ico
+    icon: [{ url: `/favicon.ico?v=${FAVICON_VERSION}`, sizes: "any" }],
+  },
+};
 
 export function generateStaticParams() {
   return routing.locales.map((locale) => ({ locale }));

@@ -14,6 +14,20 @@ const nextConfig: NextConfig = {
       },
     ],
   },
+  async headers() {
+    return [
+      {
+        // Prefer revalidation over year-long favicon caches after icon updates
+        source: "/favicon.ico",
+        headers: [
+          {
+            key: "Cache-Control",
+            value: "public, max-age=86400, must-revalidate",
+          },
+        ],
+      },
+    ];
+  },
   async redirects() {
     return [
       {

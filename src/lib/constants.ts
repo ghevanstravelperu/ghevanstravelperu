@@ -8,6 +8,9 @@ export const GOOGLE_MAPS_URL =
 export const LOCATION = "Cusco, Peru";
 export const RUC = "20610982175";
 
+/** Bump when replacing favicon assets so browsers fetch the new file. */
+export const FAVICON_VERSION = "20260731";
+
 export const LOCALES = ["es", "en", "pt", "fr"] as const;
 export type Locale = (typeof LOCALES)[number];
 export const DEFAULT_LOCALE: Locale = "es";
