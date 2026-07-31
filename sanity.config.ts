@@ -1,3 +1,4 @@
+import { esESLocale } from "@sanity/locale-es-es";
 import { defineConfig } from "sanity";
 import { structureTool } from "sanity/structure";
 import { schemaTypes } from "./sanity/schemaTypes";
@@ -10,6 +11,7 @@ export default defineConfig({
   dataset: process.env.NEXT_PUBLIC_SANITY_DATASET || "production",
   basePath: "/editar",
   plugins: [
+    esESLocale({ title: "Español" }),
     structureTool({
       structure: (S) =>
         S.list()
@@ -21,6 +23,13 @@ export default defineConfig({
           ]),
     }),
   ],
+  // Studio UI only in Spanish — easier for Orlando.
+  i18n: {
+    locales: (prev) => {
+      const spanish = prev.filter((locale) => locale.id === "es-ES");
+      return spanish.length > 0 ? spanish : prev;
+    },
+  },
   schema: {
     types: schemaTypes,
   },
