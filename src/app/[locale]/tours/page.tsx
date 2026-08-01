@@ -38,7 +38,9 @@ export default async function ToursPage({
     <section className="py-14 sm:py-16">
       <div className="mx-auto max-w-6xl px-4 sm:px-6">
         <div className="max-w-3xl">
-          <h1 className="font-serif text-4xl text-navy sm:text-5xl">{t("title")}</h1>
+          <h1 className="font-serif text-[2rem] leading-tight text-navy sm:text-5xl">
+            {t("title")}
+          </h1>
           <p className="mt-4 text-lg leading-relaxed text-stone-600">
             {t("subtitle")}
           </p>

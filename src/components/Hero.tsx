@@ -17,17 +17,17 @@ export async function Hero() {
       />
       <div className="absolute inset-0 bg-gradient-to-r from-navy/95 via-navy/80 to-transparent" />
 
-      <div className="relative z-10 mx-auto w-full max-w-6xl px-6 py-20 sm:px-10 lg:py-28">
+      <div className="relative z-10 mx-auto w-full max-w-6xl px-5 py-16 sm:px-10 sm:py-20 lg:py-28">
         <div className="max-w-xl">
-          <h1 className="font-serif text-4xl leading-tight text-white sm:text-5xl lg:text-6xl">
+          <h1 className="font-serif text-[2rem] leading-tight text-white sm:text-5xl lg:text-6xl">
             {t("title")}
           </h1>
-          <p className="mt-5 max-w-lg text-lg leading-relaxed text-white/90">
+          <p className="mt-4 max-w-lg text-base leading-relaxed text-white/90 sm:mt-5 sm:text-lg">
             {t("subtitle")}
           </p>
           <Link
             href="/contact"
-            className="mt-8 inline-flex rounded-full bg-teal px-6 py-3 text-sm font-semibold text-white transition hover:bg-teal-dark"
+            className="mt-7 inline-flex rounded-full bg-teal px-6 py-3 text-sm font-semibold text-white transition hover:bg-teal-dark sm:mt-8"
           >
             {t("cta")}
           </Link>

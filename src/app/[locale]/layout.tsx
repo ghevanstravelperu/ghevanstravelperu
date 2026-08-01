@@ -57,7 +57,7 @@ export default async function LocaleLayout({
       suppressHydrationWarning
     >
       <body
-        className="min-h-full flex flex-col antialiased"
+        className="flex min-h-full flex-col overflow-x-clip antialiased"
         suppressHydrationWarning
       >
         <script

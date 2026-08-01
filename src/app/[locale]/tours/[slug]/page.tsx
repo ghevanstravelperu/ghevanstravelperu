@@ -76,7 +76,7 @@ export default async function TourDetailPage({
           <Link href="/tours" className="text-sm font-medium text-teal hover:underline">
             ← {t("viewDetails")}
           </Link>
-          <h1 className="mt-4 font-serif text-4xl text-navy sm:text-5xl">
+          <h1 className="mt-4 font-serif text-[2rem] leading-tight text-navy sm:text-5xl">
             {content.name}
           </h1>
 
