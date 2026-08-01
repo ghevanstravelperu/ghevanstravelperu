@@ -37,12 +37,22 @@ export const metadata: Metadata = {
     url: SITE_URL,
     locale: "es_PE",
     alternateLocale: ["en_US", "pt_BR", "fr_FR"],
+    // Public path — avoids [locale] intercepting /opengraph-image.jpg
+    images: [
+      {
+        url: "/images/og-share.jpg",
+        width: 1200,
+        height: 630,
+        alt: "Ghevans Travel Peru — private tours in Cusco and Machu Picchu",
+      },
+    ],
   },
   twitter: {
     card: "summary_large_image",
     title: SITE_NAME,
     description:
       "Private tours in Cusco, Sacred Valley, and Machu Picchu — book by WhatsApp.",
+    images: ["/images/og-share.jpg"],
   },
 };
 
