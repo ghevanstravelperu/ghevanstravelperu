@@ -8,7 +8,7 @@ import { Footer } from "@/components/Footer";
 import { Header } from "@/components/Header";
 import { WhatsAppButton } from "@/components/WhatsAppButton";
 import { routing } from "@/i18n/routing";
-import { FAVICON_VERSION } from "@/lib/constants";
+import { FAVICON_VERSION, SITE_NAME, SITE_URL } from "@/lib/constants";
 import { buildOrganizationJsonLd } from "@/lib/seo";
 import "../globals.css";
 
@@ -23,9 +23,26 @@ const sourceSans = Source_Sans_3({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL(SITE_URL),
   icons: {
     // Version query busts aggressive browser caches of /favicon.ico
     icon: [{ url: `/favicon.ico?v=${FAVICON_VERSION}`, sizes: "any" }],
+  },
+  openGraph: {
+    type: "website",
+    siteName: SITE_NAME,
+    title: SITE_NAME,
+    description:
+      "Private tours in Cusco, Sacred Valley, and Machu Picchu — book by WhatsApp.",
+    url: SITE_URL,
+    locale: "es_PE",
+    alternateLocale: ["en_US", "pt_BR", "fr_FR"],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: SITE_NAME,
+    description:
+      "Private tours in Cusco, Sacred Valley, and Machu Picchu — book by WhatsApp.",
   },
 };
 

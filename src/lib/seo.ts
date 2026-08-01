@@ -38,6 +38,8 @@ export function buildOrganizationJsonLd() {
     "@type": "TravelAgency",
     name: SITE_NAME,
     url: SITE_URL,
+    image: `${SITE_URL}/images/og-share.jpg`,
+    logo: `${SITE_URL}/images/brand/logo-mark-transparent.png`,
     areaServed: {
       "@type": "Place",
       name: "Cusco, Peru",
