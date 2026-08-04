@@ -6,6 +6,7 @@ import {
   LOCATION,
   SITE_NAME,
   SITE_URL,
+  SOCIAL_LINKS,
 } from "@/lib/constants";
 import type { Tour } from "@/lib/tours";
 
@@ -70,7 +71,7 @@ export function buildOrganizationJsonLd() {
       "@type": "Place",
       name: LOCATION,
     },
-    sameAs: [GOOGLE_MAPS_URL],
+    sameAs: [GOOGLE_MAPS_URL, ...SOCIAL_LINKS.map((link) => link.href)],
   };
 }
 

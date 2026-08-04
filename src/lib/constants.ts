@@ -8,6 +8,21 @@ export const GOOGLE_MAPS_URL =
 export const LOCATION = "Cusco, Peru";
 export const RUC = "20610982175";
 
+export const SOCIAL_LINKS = [
+  {
+    name: "Instagram",
+    href: "https://www.instagram.com/ghevanstravel5/",
+  },
+  {
+    name: "Facebook",
+    href: "https://www.facebook.com/ghevanstravel",
+  },
+  {
+    name: "TikTok",
+    href: "https://www.tiktok.com/@ghevanstravel",
+  },
+] as const;
+
 /** Bump when replacing favicon assets so browsers fetch the new file. */
 export const FAVICON_VERSION = "20260731";
 

@@ -4,6 +4,7 @@ import {
   LOCATION,
   RUC,
   SITE_NAME,
+  SOCIAL_LINKS,
   WHATSAPP_DISPLAY,
 } from "@/lib/constants";
 import { Link } from "@/i18n/navigation";
@@ -19,6 +20,19 @@ export function Footer({ locale }: { locale: string }) {
         <div>
           <p className="font-serif text-xl">{SITE_NAME}</p>
           <p className="mt-2 text-sm text-white/75">{t("tagline")}</p>
+          <div className="mt-4 flex flex-wrap gap-x-4 gap-y-2 text-sm">
+            {SOCIAL_LINKS.map((link) => (
+              <a
+                key={link.href}
+                href={link.href}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="underline decoration-white/30 underline-offset-4 transition hover:text-white hover:decoration-white"
+              >
+                {link.name}
+              </a>
+            ))}
+          </div>
         </div>
         <div className="text-sm text-white/85">
           <p>{LOCATION}</p>
