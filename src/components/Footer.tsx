@@ -8,6 +8,11 @@ import {
   WHATSAPP_DISPLAY,
 } from "@/lib/constants";
 import { Link } from "@/i18n/navigation";
+import {
+  MapsIcon,
+  SocialIcon,
+  WhatsAppIcon,
+} from "@/components/SocialIcons";
 import { buildWhatsAppUrl, buildGeneralWhatsAppMessage } from "@/lib/whatsapp";
 
 export function Footer({ locale }: { locale: string }) {
@@ -20,41 +25,61 @@ export function Footer({ locale }: { locale: string }) {
         <div>
           <p className="font-serif text-xl">{SITE_NAME}</p>
           <p className="mt-2 text-sm text-white/75">{t("tagline")}</p>
-          <div className="mt-4 flex flex-wrap gap-x-4 gap-y-2 text-sm">
+          <ul className="mt-5 space-y-2.5">
             {SOCIAL_LINKS.map((link) => (
-              <a
-                key={link.href}
-                href={link.href}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="underline decoration-white/30 underline-offset-4 transition hover:text-white hover:decoration-white"
-              >
-                {link.name}
-              </a>
+              <li key={link.href}>
+                <a
+                  href={link.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label={`${link.name}: ${link.handle}`}
+                  className="group inline-flex items-center gap-2.5 text-sm text-white/80 transition hover:text-white"
+                >
+                  <span className="flex h-8 w-8 items-center justify-center rounded-full bg-white/10 text-white transition group-hover:bg-white/15">
+                    <SocialIcon name={link.name} />
+                  </span>
+                  <span className="underline decoration-white/25 underline-offset-4 group-hover:decoration-white">
+                    {link.handle}
+                  </span>
+                </a>
+              </li>
             ))}
-          </div>
+          </ul>
         </div>
         <div className="text-sm text-white/85">
           <p>{LOCATION}</p>
-          <p className="mt-2">
-            WhatsApp:{" "}
+          <p className="mt-3">
             <a
               href={whatsappUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="underline hover:text-white"
+              aria-label={`WhatsApp: ${WHATSAPP_DISPLAY}`}
+              className="group inline-flex items-center gap-2.5 text-white/80 transition hover:text-white"
             >
-              {WHATSAPP_DISPLAY}
+              <span className="flex h-8 w-8 items-center justify-center rounded-full bg-white/10 text-white transition group-hover:bg-white/15">
+                <WhatsAppIcon />
+              </span>
+              <span className="underline decoration-white/25 underline-offset-4 group-hover:decoration-white">
+                {WHATSAPP_DISPLAY}
+              </span>
             </a>
           </p>
-          <a
-            href={GOOGLE_MAPS_URL}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="mt-2 inline-block underline hover:text-white"
-          >
-            Google Maps
-          </a>
+          <p className="mt-2.5">
+            <a
+              href={GOOGLE_MAPS_URL}
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label={`Google Maps: ${SITE_NAME}`}
+              className="group inline-flex items-center gap-2.5 text-white/80 transition hover:text-white"
+            >
+              <span className="flex h-8 w-8 items-center justify-center rounded-full bg-white/10 text-white transition group-hover:bg-white/15">
+                <MapsIcon />
+              </span>
+              <span className="underline decoration-white/25 underline-offset-4 group-hover:decoration-white">
+                {SITE_NAME}
+              </span>
+            </a>
+          </p>
         </div>
         <div className="text-sm text-white/75">
           <Link href="/tours" className="block hover:text-white">

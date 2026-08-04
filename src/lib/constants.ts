@@ -11,14 +11,17 @@ export const RUC = "20610982175";
 export const SOCIAL_LINKS = [
   {
     name: "Instagram",
+    handle: "@ghevanstravel5",
     href: "https://www.instagram.com/ghevanstravel5/",
   },
   {
     name: "Facebook",
+    handle: "ghevanstravel",
     href: "https://www.facebook.com/ghevanstravel",
   },
   {
     name: "TikTok",
+    handle: "@ghevanstravel",
     href: "https://www.tiktok.com/@ghevanstravel",
   },
 ] as const;

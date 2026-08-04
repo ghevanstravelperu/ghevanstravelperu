@@ -48,15 +48,14 @@ export function LanguageSwitcher() {
         aria-expanded={open}
         aria-controls={listId}
         onClick={() => setOpen((value) => !value)}
-        className={`inline-flex items-center gap-1.5 rounded-full border bg-white px-2.5 py-2 text-sm shadow-sm transition sm:gap-2 sm:px-3.5 ${
+        className={`inline-flex items-center gap-2 rounded-full border bg-white px-3.5 py-2 text-sm shadow-sm transition ${
           open
             ? "border-teal/40 text-navy"
             : "border-stone-200 text-navy hover:border-stone-300"
         }`}
       >
         <GlobeIcon />
-        <span className="font-medium uppercase sm:hidden">{locale}</span>
-        <span className="hidden font-medium sm:inline">{labels[locale]}</span>
+        <span className="font-medium">{labels[locale]}</span>
         <svg
           viewBox="0 0 12 12"
           fill="none"
