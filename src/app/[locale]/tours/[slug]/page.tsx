@@ -3,7 +3,7 @@ import Image from "next/image";
 import { notFound } from "next/navigation";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import { Link } from "@/i18n/navigation";
-import { buildAlternateLanguages, buildTourJsonLd } from "@/lib/seo";
+import { buildPageAlternates, buildTourJsonLd } from "@/lib/seo";
 import type { Locale } from "@/lib/constants";
 import {
   formatTourPrice,
@@ -38,8 +38,22 @@ export async function generateMetadata({
   return {
     title: `${content.name} | Ghevans Travel Peru`,
     description: content.shortDescription,
-    alternates: {
-      languages: buildAlternateLanguages(`/tours/${slug}`),
+    alternates: buildPageAlternates(locale, `/tours/${slug}`),
+    openGraph: {
+      title: content.name,
+      description: content.shortDescription,
+      images: [
+        {
+          url: tour.image,
+          alt: content.name,
+        },
+      ],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: content.name,
+      description: content.shortDescription,
+      images: [tour.image],
     },
   };
 }

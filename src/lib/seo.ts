@@ -1,12 +1,29 @@
 import type { Locale } from "@/lib/constants";
-import { SITE_NAME, SITE_URL } from "@/lib/constants";
+import {
+  DEFAULT_LOCALE,
+  GOOGLE_MAPS_URL,
+  LOCALES,
+  LOCATION,
+  SITE_NAME,
+  SITE_URL,
+} from "@/lib/constants";
 import type { Tour } from "@/lib/tours";
 
 export function buildAlternateLanguages(path: string) {
-  const locales: Locale[] = ["es", "en", "pt", "fr"];
-  return Object.fromEntries(
-    locales.map((locale) => [locale, `${SITE_URL}/${locale}${path}`]),
-  );
+  return {
+    ...Object.fromEntries(
+      LOCALES.map((locale) => [locale, `${SITE_URL}/${locale}${path}`]),
+    ),
+    "x-default": `${SITE_URL}/${DEFAULT_LOCALE}${path}`,
+  };
+}
+
+/** Canonical + hreflang for a localized page path (e.g. "" or "/tours"). */
+export function buildPageAlternates(locale: Locale, path: string) {
+  return {
+    canonical: `${SITE_URL}/${locale}${path}`,
+    languages: buildAlternateLanguages(path),
+  };
 }
 
 export function buildTourJsonLd(tour: Tour, locale: Locale) {
@@ -16,11 +33,13 @@ export function buildTourJsonLd(tour: Tour, locale: Locale) {
     "@type": "TouristTrip",
     name: content.name,
     description: content.shortDescription,
+    image: tour.image,
     touristType: "Leisure",
     provider: {
       "@type": "TravelAgency",
       name: SITE_NAME,
-      areaServed: "Cusco, Peru",
+      areaServed: LOCATION,
+      url: SITE_URL,
     },
     offers: tour.price
       ? {
@@ -40,17 +59,22 @@ export function buildOrganizationJsonLd() {
     url: SITE_URL,
     image: `${SITE_URL}/images/og-share.jpg`,
     logo: `${SITE_URL}/images/brand/logo-mark-transparent.png`,
+    telephone: "+51-983-344-198",
+    address: {
+      "@type": "PostalAddress",
+      addressLocality: "Cusco",
+      addressRegion: "Cusco",
+      addressCountry: "PE",
+    },
     areaServed: {
       "@type": "Place",
-      name: "Cusco, Peru",
+      name: LOCATION,
     },
-    telephone: "+51-983-344-198",
+    sameAs: [GOOGLE_MAPS_URL],
   };
 }
 
-export function buildFaqJsonLd(
-  items: Array<{ q: string; a: string }>,
-) {
+export function buildFaqJsonLd(items: Array<{ q: string; a: string }>) {
   return {
     "@context": "https://schema.org",
     "@type": "FAQPage",

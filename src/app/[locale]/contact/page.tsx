@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import { ContactForm } from "@/components/ContactForm";
-import { buildAlternateLanguages } from "@/lib/seo";
+import { buildPageAlternates } from "@/lib/seo";
 import {
   GOOGLE_MAPS_URL,
   LOCATION,
@@ -21,9 +21,7 @@ export async function generateMetadata({
   return {
     title: t("contactTitle"),
     description: t("contactDescription"),
-    alternates: {
-      languages: buildAlternateLanguages("/contact"),
-    },
+    alternates: buildPageAlternates(locale, "/contact"),
   };
 }
 

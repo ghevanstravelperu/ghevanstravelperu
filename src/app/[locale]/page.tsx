@@ -6,7 +6,7 @@ import { Hero } from "@/components/Hero";
 import { TourCard } from "@/components/TourCard";
 import { ScrollCarousel } from "@/components/ScrollCarousel";
 import { Link } from "@/i18n/navigation";
-import { buildAlternateLanguages } from "@/lib/seo";
+import { buildPageAlternates } from "@/lib/seo";
 import type { Locale } from "@/lib/constants";
 import { getAllTours } from "@/lib/tours";
 
@@ -21,9 +21,7 @@ export async function generateMetadata({
   return {
     title: t("homeTitle"),
     description: t("homeDescription"),
-    alternates: {
-      languages: buildAlternateLanguages(""),
-    },
+    alternates: buildPageAlternates(locale, ""),
   };
 }
 

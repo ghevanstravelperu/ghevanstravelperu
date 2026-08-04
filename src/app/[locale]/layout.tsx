@@ -24,6 +24,8 @@ const sourceSans = Source_Sans_3({
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
+  description:
+    "Private tours in Cusco, Sacred Valley, and Machu Picchu — book by WhatsApp with Ghevans Travel Peru.",
   icons: {
     // Version query busts aggressive browser caches of /favicon.ico
     icon: [{ url: `/favicon.ico?v=${FAVICON_VERSION}`, sizes: "any" }],

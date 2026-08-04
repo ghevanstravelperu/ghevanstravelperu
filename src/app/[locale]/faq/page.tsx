@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { getTranslations, setRequestLocale } from "next-intl/server";
-import { buildAlternateLanguages, buildFaqJsonLd } from "@/lib/seo";
+import { buildFaqJsonLd, buildPageAlternates } from "@/lib/seo";
 import type { Locale } from "@/lib/constants";
 
 export async function generateMetadata({
@@ -14,9 +14,7 @@ export async function generateMetadata({
   return {
     title: t("faqTitle"),
     description: t("faqDescription"),
-    alternates: {
-      languages: buildAlternateLanguages("/faq"),
-    },
+    alternates: buildPageAlternates(locale, "/faq"),
   };
 }
 

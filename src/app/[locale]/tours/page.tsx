@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import { TourCard } from "@/components/TourCard";
-import { buildAlternateLanguages } from "@/lib/seo";
+import { buildPageAlternates } from "@/lib/seo";
 import type { Locale } from "@/lib/constants";
 import { getAllTours } from "@/lib/tours";
 
@@ -16,9 +16,7 @@ export async function generateMetadata({
   return {
     title: t("toursTitle"),
     description: t("toursDescription"),
-    alternates: {
-      languages: buildAlternateLanguages("/tours"),
-    },
+    alternates: buildPageAlternates(locale, "/tours"),
   };
 }
 
