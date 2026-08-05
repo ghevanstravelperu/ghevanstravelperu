@@ -68,7 +68,7 @@ export function HeaderSocialLinks() {
           title={link.handle}
           className="inline-flex h-9 w-9 items-center justify-center rounded-full text-navy/70 transition hover:bg-white hover:text-teal"
         >
-          <SocialIcon name={link.name} className="h-3.5 w-3.5" />
+          <SocialIcon name={link.name} className="h-6 w-6" />
         </a>
       ))}
     </div>
